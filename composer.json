@@ -1,0 +1,15 @@
+{
+  "name": "vendor_name/test",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "adamkarpita",
+      "email": "adam@karpita.cz"
+    }
+  ],
+  "require": {
+      "dibi/dibi": "v4.2.*"
+  }
+}

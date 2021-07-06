@@ -1,0 +1,26 @@
+table {
+     width: 100%;
+     background-color: #ffffff;
+     border-collapse: collapse;
+     border-width: 2px;
+     border-color: #000000;
+     border-style: solid;
+     color: #000000;
+}
+
+table td, table th {
+    border-width: 2px;
+    border-color: #000000;
+    border-style: solid;
+    padding: 3px;
+}
+
+table thead {
+    background-color: #ffffff;
+}
+
+table td.active{
+    background-color: #0000FF;
+}
+
+
