@@ -1,5 +1,6 @@
 <?php
     require_once 'vendor/autoload.php';
+    require_once 'XmlData.php';
 
     $database = new Dibi\Connection([
         'driver'   => 'mysqli',
@@ -9,19 +10,15 @@
         'database' => 'pohovor',
     ]);
 
-    //Vytvoření tabulky
-    $database->query('
-        CREATE TABLE IF NOT EXISTS `zaznamy` (
-        id INT(10) NOT NULL AUTO_INCREMENT,
-        jmeno VARCHAR(64) NOT NULL,
-        prijmeni VARCHAR(64) NOT NULL,
-        datum DATE,
-        PRIMARY KEY (id))
-    ');
+    $file = "data/xml.xml";
+    $values = array();
 
-    $xml = simplexml_load_file('data/xml.xml');
+    $xmlData = new \Xml\XmlData($database);
 
-    foreach ($xml->children() as $row) {
+    $xmlData->installTableZaznamy();
+    $xml = $xmlData->loadDataFromXml($file);
+
+    foreach ($xml as $row) {
         $firstName = (string)$row->JMENO;
         $surName = (string)$row->PRIJMENI;
         $date = (string)$row->DATE;
@@ -32,14 +29,12 @@
                 'prijmeni' => $surName,
                 'datum' => $date
         ];
-        $database->query('INSERT INTO `zaznamy` %v', $values);
+
+        $xmlData->instertDataIntoTableZaznamy($values);
+        //$database->query('INSERT INTO `zaznamy` %v', $values);
     }
 
-    $records = $database->query('
-        SELECT id, jmeno, prijmeni, datum 
-        FROM `zaznamy`
-        ORDER BY datum
-    ');
+    $records = $xmlData->getDataFromTableZaznamy();
 
 ?>
 
@@ -61,7 +56,6 @@
         <th>Datum</th>
             <?php
                 foreach ($records as $row) {
-
                     echo '<tr>';
                     echo '<td>' . $row->id . '</td>';
                     echo '<td>' . $row->jmeno . '</td>';
