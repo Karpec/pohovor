@@ -54,16 +54,18 @@
         <th>Jméno</th>
         <th>Příjmení</th>
         <th>Datum</th>
-            <?php
-                foreach ($records as $row) {
-                    echo '<tr>';
-                    echo '<td>' . $row->id . '</td>';
-                    echo '<td>' . $row->jmeno . '</td>';
-                    echo '<td>' . $row->prijmeni . '</td>';
-                    echo '<td>' . date("d.m.Y", strtotime($row->datum)) . '</td>';
-                    echo '</tr>';
-                }
-            ?>
+<?php
+    foreach ($records as $row) {
+?>
+           <tr>
+               <td><?=$row->id?></td>
+               <td><?=$row->jmeno?></td>
+               <td><?=$row->prijmeni?></td>
+               <td><?=date("d.m.Y", strtotime($row->datum))?></td>
+           </tr>
+<?php
+     }
+?>
     </table>
 
 
